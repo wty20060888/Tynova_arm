@@ -10,6 +10,11 @@ controller_list:
       - joint4
       - joint5
       - joint6
+      - joint41
+      - joint42
+      - joint43
+      - joint44
+      - joint45
       
   - name: gripper_controller
     action_ns: gripper_action

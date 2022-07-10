@@ -34,8 +34,11 @@ class MoveItFkDemo:
         rospy.sleep(1)
          
         # 设置机械臂的目标位置，使用六轴的位置数据进行描述（单位：弧度）
-        joint_positions = [-0.0867, -1.274, 0.02832, 0.0820, -1.273, -0.003]
-        arm.set_joint_value_target(joint_positions)
+        joint_positions = [0, -10, -1, -4, -8, 7, -3, 0, 4, -12, 0]
+        x_ = []
+        for i in joint_positions:
+            x_.append(i * 3.1415 /180)
+        arm.set_joint_value_target(x_)
                  
         # 控制机械臂完成运动
         arm.go()

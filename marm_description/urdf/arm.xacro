@@ -38,20 +38,29 @@
     <xacro:property name="link4_len" value="0.06" />
 
     <!-- link5 properties -->
-    <xacro:property name="link5_width" value="0.03" />
+    <xacro:property name="link5_width" value="0.01" />
     <xacro:property name="link5_len" value="0.06" />
 
     <!-- link6 properties -->
     <xacro:property name="link6_width" value="0.04" />
     <xacro:property name="link6_len" value="0.02" />
 
+    <!-- link41 properties -->
+    <xacro:property name="link41_width" value="0.02" />
+    <xacro:property name="link41_len" value="0.2" />
+
+    <!-- link55 properties -->
+    <xacro:property name="link55_width" value="0.01" />
+    <xacro:property name="link55_len" value="0.025" />
+
+
     <!-- Left gripper -->
-    <xacro:property name="left_gripper_len" value="0.05" />
+    <xacro:property name="left_gripper_len" value="0.02" />
     <xacro:property name="left_gripper_width" value="0.01" />
     <xacro:property name="left_gripper_height" value="0.01" />
 
     <!-- Right gripper -->
-    <xacro:property name="right_gripper_len" value="0.05" />
+    <xacro:property name="right_gripper_len" value="0.02" />
     <xacro:property name="right_gripper_width" value="0.01" />
     <xacro:property name="right_gripper_height" value="0.01" />
 
@@ -74,7 +83,7 @@
     </joint>
     <link name="bottom_link">
         <visual>
-              <origin xyz=" 0 0 -0.02"  rpy="0 0 0"/>
+              <origin xyz=" 0 0 -0.01"  rpy="0 0 0"/>
                   <geometry>
                        <box size="2 2 0.02" />
                   </geometry>
@@ -92,7 +101,7 @@
     <!-- /////////////////////////////////////   BASE LINK    ////////////////////////////////////////////// -->
     <link name="base_link">
         <visual>
-            <origin xyz="0 0 0" rpy="0 0 0" />
+            <origin xyz="0 0 0.02" rpy="0 0 0" />
             <geometry>
                 <box size="0.3 0.3 0.04" />
             </geometry>
@@ -193,7 +202,7 @@
         <parent link="link3"/>
         <child link="link4"/>
         <origin xyz="0.0 0.0 -${link3_len}" rpy="0 ${M_PI/2} ${M_PI}" />
-        <axis xyz="1 0 0" />
+        <axis xyz="0 0 1" />
         <limit effort="300" velocity="1" lower="-2.62" upper="2.62" />
         <dynamics damping="50" friction="1"/>
     </joint>
@@ -218,8 +227,144 @@
 
     <joint name="joint5" type="revolute">
         <parent link="link4"/>
-        <child link="link5"/>
+        <child link="link41"/>
         <origin xyz="${link4_len} 0.0 0.0" rpy="0 ${M_PI/2} 0" />
+        <axis xyz="1 0 0" />
+        <limit effort="300" velocity="1" lower="-2.62" upper="2.62" />
+        <dynamics damping="50" friction="1"/>
+    </joint>
+
+
+    <!-- ///////////////////////////////////   LINK41  //////////////////////////////////////////////// -->
+    <link name="link41" >
+        <visual>
+            <origin xyz="0 0 ${link41_len/2}" rpy="0 0 0" />
+            <geometry>
+                <cylinder radius="${link41_width}" length="${link41_len}"/>
+            </geometry>
+            <material name="red" />
+        </visual>
+        <collision>
+            <origin xyz="${link41_len/2} 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder radius="${link41_width}" length="${link41_len}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_matrix mass="1"/>
+    </link>
+
+    <joint name="joint41" type="revolute">
+        <parent link="link41"/>
+        <child link="link42"/>
+        <origin xyz="0 0 ${link41_len}" rpy="0 0 0" />
+        <axis xyz="1 0 0" />
+        <limit effort="300" velocity="1" lower="-2.62" upper="2.62" />
+        <dynamics damping="50" friction="1"/>
+    </joint>
+
+    <!-- ///////////////////////////////////   LINK42  //////////////////////////////////////////////// -->
+    <link name="link42" >
+        <visual>
+            <origin xyz="0 0 ${link5_len/2}" rpy="0 0 0" />
+            <geometry>
+                <cylinder radius="${link5_width}" length="${link5_len}"/>
+            </geometry>
+            <material name="red" />
+        </visual>
+        <collision>
+            <origin xyz="${link5_len/2} 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder radius="${link5_width}" length="${link5_len}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_matrix mass="1"/>
+    </link>
+
+    <joint name="joint42" type="revolute">
+        <parent link="link42"/>
+        <child link="link43"/>
+        <origin xyz="0 0 ${link4_len}" rpy="0 0 0" />
+        <axis xyz="1 0 0" />
+        <limit effort="300" velocity="1" lower="-2.62" upper="2.62" />
+        <dynamics damping="50" friction="1"/>
+    </joint>
+
+    <!-- ///////////////////////////////////   LINK43  //////////////////////////////////////////////// -->
+    <link name="link43" >
+        <visual>
+            <origin xyz="0 0 ${link5_len/2}" rpy="0 0 0" />
+            <geometry>
+                <cylinder radius="${link5_width}" length="${link5_len}"/>
+            </geometry>
+            <material name="red" />
+        </visual>
+        <collision>
+            <origin xyz="${link5_len/2} 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder radius="${link5_width}" length="${link5_len}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_matrix mass="1"/>
+    </link>
+
+    <joint name="joint43" type="revolute">
+        <parent link="link43"/>
+        <child link="link44"/>
+        <origin xyz="0 0 ${link4_len}" rpy="0 0 0" />
+        <axis xyz="1 0 0" />
+        <limit effort="300" velocity="1" lower="-2.62" upper="2.62" />
+        <dynamics damping="50" friction="1"/>
+    </joint>
+
+    <!-- ///////////////////////////////////   LINK44  //////////////////////////////////////////////// -->
+    <link name="link44" >
+        <visual>
+            <origin xyz="0 0 ${link5_len/2}" rpy="0 0 0" />
+            <geometry>
+                <cylinder radius="${link5_width}" length="${link5_len}"/>
+            </geometry>
+            <material name="red" />
+        </visual>
+        <collision>
+            <origin xyz="${link5_len/2} 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder radius="${link5_width}" length="${link5_len}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_matrix mass="1"/>
+    </link>
+
+    <joint name="joint44" type="revolute">
+        <parent link="link44"/>
+        <child link="link45"/>
+        <origin xyz="0 0 ${link4_len}" rpy="0 0 0" />
+        <axis xyz="1 0 0" />
+        <limit effort="300" velocity="1" lower="-2.62" upper="2.62" />
+        <dynamics damping="50" friction="1"/>
+    </joint>
+
+    <!-- ///////////////////////////////////   LINK45  //////////////////////////////////////////////// -->
+    <link name="link45" >
+        <visual>
+            <origin xyz="0 0 ${link5_len/2}" rpy="0 0 0" />
+            <geometry>
+                <cylinder radius="${link5_width}" length="${link5_len}"/>
+            </geometry>
+            <material name="red" />
+        </visual>
+        <collision>
+            <origin xyz="${link5_len/2} 0 0" rpy="0 0 0" />
+            <geometry>
+                <cylinder radius="${link5_width}" length="${link5_len}"/>
+            </geometry>
+        </collision>
+        <xacro:inertial_matrix mass="1"/>
+    </link>
+
+    <joint name="joint45" type="revolute">
+        <parent link="link45"/>
+        <child link="link5"/>
+        <origin xyz="0 0 ${link4_len}" rpy="0 0 0" />
         <axis xyz="1 0 0" />
         <limit effort="300" velocity="1" lower="-2.62" upper="2.62" />
         <dynamics damping="50" friction="1"/>
@@ -228,9 +373,9 @@
     <!-- //////////////////////////////////   LINK5  ///////////////////////////////////////////////// -->
     <link name="link5">
         <visual>
-            <origin xyz="0 0 ${link4_len/2}" rpy="0 0 0" />
+            <origin xyz="0 0 ${link55_len/2}" rpy="0 0 0" />
             <geometry>
-                <cylinder radius="${link5_width}" length="${link5_len}"/>
+                <cylinder radius="${link55_width}" length="${link55_len}"/>
             </geometry>
             <material name="White" />
         </visual>
@@ -246,7 +391,7 @@
     <joint name="joint6" type="revolute">
         <parent link="link5"/>
         <child link="link6"/>
-        <origin xyz="0 0 ${link4_len}" rpy="${1.5*M_PI} -${M_PI/2} 0" />
+        <origin xyz="0 0 ${link55_len}" rpy="${1.5*M_PI} -${M_PI/2} 0" />
         <axis xyz="1 0 0" />
         <limit effort="300" velocity="1" lower="-6.28" upper="6.28" />
         <dynamics damping="50" friction="1"/>
@@ -255,9 +400,9 @@
     <!-- ////////////////////////////////   LINK6  ///////////////////////////////////////////////// -->
     <link name="link6">
         <visual>
-            <origin xyz="${link6_len/2} 0 0 " rpy="0 ${M_PI/2} 0" />
+            <origin xyz="0.005 0 0 " rpy="0 ${M_PI/2} 0" />
             <geometry>
-                <box size="0.01 0.08 0.01" />
+                <box size="0.01 0.06 0.01" />
             </geometry>
             <material name="Blue" />
         </visual>
@@ -285,7 +430,7 @@
     <!-- LEFT GRIPPER AFT LINK -->
     <link name="gripper_finger_link1">
         <visual>
-            <origin xyz="0.04 -0.03 0"/>
+            <origin xyz="0.01 -0.04 0"/>
             <geometry>
                 <box size="${left_gripper_len} ${left_gripper_width} ${left_gripper_height}" />
             </geometry>
@@ -303,7 +448,7 @@
     <!-- RIGHT GRIPPER AFT LINK -->
     <link name="gripper_finger_link2">
         <visual>
-            <origin xyz="0.04 0.03 0"/>
+            <origin xyz="0.01 0.02 0"/>
             <geometry>
                 <box size="${right_gripper_len} ${right_gripper_width} ${right_gripper_height}" />
             </geometry>
